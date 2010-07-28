@@ -1,0 +1,3 @@
+name = "Metadata Extractor"
+description = "Extract metadata from photos and optionally displays it in a sidebar."
+version = 0.1
