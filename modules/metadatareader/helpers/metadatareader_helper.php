@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once(MODPATH . "metadata_extract/helpers/metadata_utils.php");
+require_once(MODPATH . "metadatareader/helpers/metadatareader_utils.php");
 
-class metadata_helper {
+class metadatareader_helper {
 
   protected static $metadata_keys = array(
     // Photo properties 

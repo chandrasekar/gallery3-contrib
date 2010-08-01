@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once(MODPATH . "metadata_extract/helpers/metadata_utils.php");
+require_once(MODPATH . "metadatareader/helpers/metadatareader_utils.php");
 
-class metadata_extract_installer {
+class metadatareader_installer {
   static function install() {
     $db = Database::instance();
     $db->query("CREATE TABLE IF NOT EXISTS {" . METADATA_TABLE . "} (

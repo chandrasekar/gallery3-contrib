@@ -18,22 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once(MODPATH . "metadata_extract/helpers/metadata_helper.php");
+// Constants
+define("METADATA_MODULE_NAME", "metadatareader");
+define("METADATA_RECORD", "metadata_photo");
+define("METADATA_TABLE", "metadata_photos");
 
-class metadata_extract_event_Core {
+class metadatareader_utils {
 
-  static function item_created($item) {
-    if ($item->is_photo()) {
-      $metadata = metadata_helper::read($item);
-      metadata_helper::save($item, $metadata);
-    }
+  static function ends_with($str, $search_str) {
+    return (substr($str, strlen($str) - strlen($search_str)) === $search_str);
   }
 
-  static function item_deleted($item) {
-    db::build()
-      ->delete(METADATA_TABLE)
-      ->where("item_id", "=", $item->id)
-      ->execute();
-  }
 }
 
