@@ -51,11 +51,11 @@ class metadatareader_installer {
   }
 
   static function activate() {
-    //exif::check_index();
+    metadatareader_helper::check_index();
   }
 
   static function deactivate() {
-    //site_status::clear("exif_index_out_of_date");
+    site_status::clear("metadata_out_of_date");
   }
 
   static function uninstall() {

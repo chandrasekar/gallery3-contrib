@@ -227,4 +227,35 @@ class metadatareader_helper {
     } // end - if - tag module is active and photo has keywords
   }
 
+  public static function stats() {
+    $missing_metadata = db::build()
+      ->select("items.id")
+      ->from("items")
+      ->join(METADATA_TABLE, "items.id", METADATA_TABLE.".item_id", "left")
+      ->where("type", "=", "photo")
+      ->and_open()
+      ->where(METADATA_TABLE.".item_id", "IS", null)
+      ->or_where(METADATA_TABLE.".dirty", "=", 1)
+      ->close()
+      ->execute()
+      ->count();
+
+    $total_items = ORM::factory("item")->where("type", "=", "photo")->count_all();
+    if (!$total_items) {
+      return array(0, 0, 0);
+    }
+    return array($missing_metadata, $total_items,
+                 round(100 * (($total_items - $missing_metadata) / $total_items)));
+  }
+
+  static function check_index() {
+    list ($remaining) = metadatareader_helper::stats();
+    if ($remaining) {
+      site_status::warning(
+        t('Metadata needs to be synchronized.  <a href="%url" class="g-dialog-link">Fix this now</a>',
+          array("url" => html::mark_clean(url::site("admin/maintenance/start/metadata_extract_task::update_index?csrf=__CSRF__")))),
+        "metadata_out_of_date");
+    }
+  }
+
 }
